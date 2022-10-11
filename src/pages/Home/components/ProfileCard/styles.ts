@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 
 export const ProfileCardContainer = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 148px 1fr;
   align-items: flex-end;
   gap: 2rem;
 
