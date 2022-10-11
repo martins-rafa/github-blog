@@ -1,15 +1,8 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-export const PostsListContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(416px, 1fr));
-  place-items: center;
-  gap: 2rem;
-
-  margin-bottom: 10rem;
-`
-
-export const PostItem = styled.div`
+export const PostItem = styled(Link)`
+  text-decoration: none;
   width: 100%;
   max-width: 416px;
   height: 260px;
@@ -17,8 +10,6 @@ export const PostItem = styled.div`
   border-radius: 10px;
   background-color: ${({ theme }) => theme.colors['base-post']};
   border: 2px solid transparent;
-
-  cursor: pointer;
 
   transition: border-color, 200ms ease-in-out;
 
@@ -36,6 +27,11 @@ export const PostItem = styled.div`
       max-width: 270px;
       font-size: 1.25rem;
       color: ${({ theme }) => theme.colors['base-title']};
+
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     span {
@@ -45,6 +41,7 @@ export const PostItem = styled.div`
   }
 
   p {
+    color: ${({ theme }) => theme.colors['base-text']};
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;

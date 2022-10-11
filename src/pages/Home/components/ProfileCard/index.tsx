@@ -13,17 +13,43 @@ import {
   faUserGroup,
 } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { api } from '../../../../lib/axios'
+import { useCallback, useEffect, useState } from 'react'
+
+interface User {
+  login: string
+  avatar_url: string
+  html_url: string
+  name: string
+  company: string
+  bio: string
+  followers: number
+}
+
+const githubUser = import.meta.env.VITE_GITHUB_USER
 
 export function ProfileCard() {
+  const [user, setUser] = useState<User>({} as User)
+
+  const fetchUserData = useCallback(async () => {
+    const response = await api.get(`/users/${githubUser}`)
+
+    setUser(response.data)
+  }, [])
+
+  useEffect(() => {
+    fetchUserData()
+  }, [fetchUserData])
+
   return (
     <ProfileCardContainer>
-      <img src="https://avatars.githubusercontent.com/u/91082590?v=4" alt="" />
+      <img src={user.avatar_url} alt="" />
 
       <div>
         <ProfileCardHeader>
-          <h1>Rafa Martins</h1>
+          <h1>{user.name}</h1>
           <a
-            href="https://github.com/martins-rafa"
+            href={user.html_url}
             target="_blank"
             rel="noreferrer"
             className="link"
@@ -36,26 +62,22 @@ export function ProfileCard() {
           </a>
         </ProfileCardHeader>
 
-        <BioParagraph>
-          Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-          viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat
-          pulvinar vel mass.
-        </BioParagraph>
+        <BioParagraph>{user.bio}</BioParagraph>
 
         <InfoContainer>
           <Info>
             <FontAwesomeIcon icon={faGithub} className="info-icon" />
-            <span>martins-rafa</span>
+            <span>{user.login}</span>
           </Info>
 
           <Info>
             <FontAwesomeIcon icon={faBuilding} className="info-icon" />
-            <span>company</span>
+            <span>{user.company === null ? 'not informed' : user.company}</span>
           </Info>
 
           <Info>
             <FontAwesomeIcon icon={faUserGroup} className="info-icon" />
-            <span>32 followers</span>
+            <span>{user.followers} followers</span>
           </Info>
         </InfoContainer>
       </div>
