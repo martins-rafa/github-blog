@@ -7,6 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavLink } from 'react-router-dom'
+import { PostIssues } from '../..'
 import {
   Info,
   InfoContainer,
@@ -14,7 +15,11 @@ import {
   PostHeaderContainer,
 } from './styles'
 
-export function PostHeader() {
+interface PostHeaderProps {
+  issue: PostIssues
+}
+
+export function PostHeader({ issue }: PostHeaderProps) {
   return (
     <PostHeaderContainer>
       <LinksContainer>
@@ -24,7 +29,7 @@ export function PostHeader() {
         </NavLink>
 
         <a
-          href={'https://github.com/martins-rafa'}
+          href={issue.html_url}
           target="_blank"
           rel="noreferrer"
           className="link"
@@ -34,22 +39,22 @@ export function PostHeader() {
         </a>
       </LinksContainer>
 
-      <h1>JavaScript data types and data structures</h1>
+      <h1>{issue.title}</h1>
 
       <InfoContainer>
         <Info>
           <FontAwesomeIcon icon={faGithub} className="info-icon" />
-          <span>martins-rafa</span>
+          <span>{issue.login}</span>
         </Info>
 
         <Info>
           <FontAwesomeIcon icon={faCalendarDay} className="info-icon" />
-          <span>2 days ago</span>
+          <span>{issue.created_at}</span>
         </Info>
 
         <Info>
           <FontAwesomeIcon icon={faComment} className="info-icon" />
-          <span>5 comments</span>
+          <span>{issue.comments} comments</span>
         </Info>
       </InfoContainer>
     </PostHeaderContainer>
