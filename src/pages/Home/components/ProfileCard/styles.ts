@@ -35,6 +35,10 @@ export const ProfileCardHeader = styled.header`
 
 export const BioParagraph = styled.p`
   margin-bottom: 1.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `
 
 export const InfoContainer = styled.div`
