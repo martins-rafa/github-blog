@@ -8,6 +8,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NavLink } from 'react-router-dom'
 import { PostIssues } from '../..'
+import { formatCreatedAtDate } from '../../../../utils/fomatDate'
 import {
   Info,
   InfoContainer,
@@ -20,6 +21,8 @@ interface PostHeaderProps {
 }
 
 export function PostHeader({ issue }: PostHeaderProps) {
+  const formattedCreatedAt = formatCreatedAtDate(issue.created_at)
+
   return (
     <PostHeaderContainer>
       <LinksContainer>
@@ -49,12 +52,14 @@ export function PostHeader({ issue }: PostHeaderProps) {
 
         <Info>
           <FontAwesomeIcon icon={faCalendarDay} className="info-icon" />
-          <span>{issue.created_at}</span>
+          <span>{formattedCreatedAt}</span>
         </Info>
 
         <Info>
           <FontAwesomeIcon icon={faComment} className="info-icon" />
-          <span>{issue.comments} comments</span>
+          <span>{`${issue.comments} ${
+            issue.comments === 1 ? 'comment' : 'comments'
+          }`}</span>
         </Info>
       </InfoContainer>
     </PostHeaderContainer>

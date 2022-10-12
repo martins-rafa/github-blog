@@ -24,7 +24,7 @@ export const PostItem = styled(Link)`
     margin-bottom: 1.25rem;
 
     h2 {
-      max-width: 270px;
+      max-width: 250px;
       font-size: 1.25rem;
       color: ${({ theme }) => theme.colors['base-title']};
 
