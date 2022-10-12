@@ -23,10 +23,10 @@ export interface Issues {
 export function Home() {
   const [issues, setIssues] = useState<Issues[]>([])
 
-  const fetchIssues = useCallback(async () => {
+  const fetchIssues = useCallback(async (query: string = '') => {
     const response = await api.get('/search/issues', {
       params: {
-        q: `repo:${githubUser}/${githubRepo}`,
+        q: `${query}repo:${githubUser}/${githubRepo}`,
       },
     })
 
@@ -40,7 +40,7 @@ export function Home() {
   return (
     <HomeContainer className="container">
       <ProfileCard />
-      <SearchForm />
+      <SearchForm postsListLength={issues.length} fetchIssues={fetchIssues} />
 
       <PostsListContainer>
         {issues.map((issue) => (
